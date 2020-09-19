@@ -11,6 +11,13 @@ module Api
           render_errors(errors: command.errors, message: command.errors.full_messages.to_sentence, status: 422)
         end
       end
+
+      def unfollow
+        command = UserBusiness::DestroyFollow.new(params[:id], params[:following_id])
+        if command.sucess?
+          head :no_content
+        end
+      end
     end
   end
 end

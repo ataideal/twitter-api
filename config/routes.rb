@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         member do
           post :follow
+          delete :unfollow
         end
       end
     end
