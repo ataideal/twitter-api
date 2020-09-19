@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_follows
@@ -23,14 +25,11 @@ class UserFollow < ApplicationRecord
   belongs_to :follower, class_name: 'User', foreign_key: :user_id
   belongs_to :following, class_name: 'User', foreign_key: :following_id
 
-  validates_uniqueness_of :user_id, scope: :following_id
+  validates :user_id, uniqueness: { scope: :following_id }
 
   validate :not_following_yourself
 
-
   def not_following_yourself
-    if user_id == following_id
-      errors.add(:following_id, :bad_following_id)
-    end
+    errors.add(:following_id, :bad_following_id) if user_id == following_id
   end
 end

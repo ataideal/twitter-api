@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tweets
@@ -19,5 +21,5 @@
 class Tweet < ApplicationRecord
   belongs_to :user
 
-  validates_presence_of :content
+  validates :content, presence: true
 end

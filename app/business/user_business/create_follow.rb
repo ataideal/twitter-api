@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserBusiness
   class CreateFollow
     include Command
@@ -9,6 +11,7 @@ module UserBusiness
     end
 
     protected
+
     def perform
       user_follow = @user.user_followings.build(following: @following)
       @errors = user_follow.errors unless user_follow.save

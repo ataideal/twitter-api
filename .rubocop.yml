@@ -2,3 +2,6 @@ require: rubocop-rails
 
 Style/Documentation:
   Enabled: false
+
+Rails/InverseOf:
+  Enable: false

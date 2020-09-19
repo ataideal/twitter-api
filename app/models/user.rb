@@ -10,17 +10,19 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 class User < ApplicationRecord
+  has_many :user_followings, class_name: 'UserFollow', dependent: :destroy
 
-  has_many :user_followings, class_name: 'UserFollow', foreign_key: :user_id
-  has_many :user_followers, class_name: 'UserFollow', foreign_key: :following_id
+  has_many :user_followers, class_name: 'UserFollow', foreign_key: :following_id, dependent: :destroy
 
   has_many :followings, through: :user_followings, source: :following
   has_many :followers, through: :user_followers, source: :follower
-  has_many :tweets
+  has_many :tweets, dependent: :destroy
 
-
-  validates_presence_of :email, :name
-  validates_uniqueness_of :email
-
+  validates :email, :name, presence: true
+  validates :email, uniqueness: true
 end
