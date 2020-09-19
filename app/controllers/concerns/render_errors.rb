@@ -6,5 +6,4 @@ module RenderErrors
       render json: { errors: errors, message: message }, status: status
     end
   end
-
 end

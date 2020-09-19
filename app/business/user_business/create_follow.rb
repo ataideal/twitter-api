@@ -11,7 +11,7 @@ module UserBusiness
     protected
     def perform
       user_follow = @user.user_followings.build(following: @following)
-      errors.push(user_follow.errors.full_messages) unless user_follow.save
+      @errors = user_follow.errors unless user_follow.save
       user_follow
     end
   end

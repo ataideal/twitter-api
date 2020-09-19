@@ -2,9 +2,9 @@ module Command
   attr_reader :result, :errors
 
   def initialize
-    @errors = []
+    @errors = nil
     @result = perform
-    @_sucess = errors.to_a.size == 0 ? true : false
+    @_sucess = errors.nil? ? true : false
   end
 
   def sucess?

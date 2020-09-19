@@ -6,7 +6,7 @@ module Api
         if command.sucess?
           head :created
         else
-          render_errors(errors: command.errors, message: command.errors.join(","), status: 422)
+          render_errors(errors: command.errors, message: command.errors.full_messages.to_sentence, status: 422)
         end
       end
     end
