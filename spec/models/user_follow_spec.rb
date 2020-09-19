@@ -23,12 +23,14 @@ require 'rails_helper'
 
 RSpec.describe UserFollow, type: :model do
   describe 'validations' do
-    it { should belong_to(:user)  }
-    it { should belong_to(:following)  }
+    context 'validates uniqueness indexes' do
+      subject { create(:user_follow) }
+      it { should validate_uniqueness_of(:user_id).scoped_to(:following_id) }
+    end
   end
 
   describe 'associations' do
-    it { should belong_to(:user)  }
-    it { should belong_to(:following)  }
+    it { should belong_to(:follower).class_name('User')  }
+    it { should belong_to(:following).class_name('User') }
   end
 end
