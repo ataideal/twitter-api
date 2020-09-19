@@ -19,7 +19,7 @@ class CommandTest
   end
 end
 
-class CommandTestWrong
+class CommandTestWithoutPerform
   include Command
 
   def initialize
@@ -43,7 +43,7 @@ RSpec.describe CommandTest do
   end
 
   describe 'class not implements peform method' do
-    it { expect { CommandTestWrong.new }.to raise_error("method 'perform' not implemented for this class") }
+    it { expect { CommandTestWithoutPerform.new }.to raise_error("method 'perform' not implemented for this class") }
   end
 
   describe 'instance has command att_readers' do
