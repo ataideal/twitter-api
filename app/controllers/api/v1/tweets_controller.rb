@@ -4,9 +4,9 @@ module Api
   module V1
     class TweetsController < Api::V1::BaseController
       def index
-        command = UserBusiness::DestroyFollow.new(params[:id], params[:following_id])
+        command = TweetBusiness::TweetFeed.new(params[:user_id])
         if command.sucess?
-          head :no_content
+          render json: command.result, status: :ok
         end
       end
 

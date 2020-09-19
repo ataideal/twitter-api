@@ -54,7 +54,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
               }
           }
         end
-        it 'returns 422 user not exist' do
+        it 'returns 422 user not exist and a message error' do
           expect(response).to have_http_status(422)
           expect(json_body["errors"]["user"].first).to eq("must exist")
         end
@@ -68,7 +68,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
               }
           }
         end
-        it 'returns 422 content missing' do
+        it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
           expect(json_body["errors"]["content"].first).to eq("can't be blank")
         end
@@ -83,7 +83,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
               }
           }
         end
-        it 'returns 422 content missing' do
+        it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
           expect(json_body["errors"]["content"].first).to eq("can't be blank")
         end
@@ -98,7 +98,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
               }
           }
         end
-        it 'returns 422 content missing' do
+        it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
           expect(json_body["errors"]["content"].first).to match(/is too long/)
         end
@@ -113,9 +113,69 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
               }
           }
         end
-        it 'returns 422 content missing' do
+        it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
           expect(json_body["errors"]["content"].first).to match(/is too short/)
+        end
+      end
+    end
+  end
+
+  describe 'GET api/v1/tweets' do
+    let(:user) { create(:user) }
+    let!(:tweets) { create_list(:tweet, 5, user: user) }
+    let(:params) { { user_id: user.id } }
+    let(:subject) { get api_v1_tweets_path(params) }
+
+    context 'when params are correct' do
+      context 'returns successfully' do
+        before { subject }
+
+        it 'render 200 ok' do
+          expect(response).to have_http_status(200)
+        end
+
+        it 'expect response to be an array' do
+          expect(json_body).to be_an Array
+        end
+      end
+
+      context 'when user published a twitter' do
+        before { subject }
+
+        it 'expect response to match size' do
+          expect(json_body.size).to eq(5)
+        end
+
+        it 'expect response to match user tweet' do
+          expect(json_body).to include(*JSON.parse(ActiveModelSerializers::SerializableResource.new(tweets).to_json))
+        end
+      end
+
+      context 'when user and a following published a twitter' do
+        let(:user_follow) { create(:user_follow, follower: user) }
+        let!(:following_tweets) { create_list(:tweet, 5, user: user_follow.following) }
+
+        it 'expect response to match size' do
+          subject
+          expect(json_body.size).to eq(10)
+        end
+
+        it 'expect response to match user tweet feed' do
+          subject
+          expect(json_body).to include(*JSON.parse(ActiveModelSerializers::SerializableResource.new(tweets).to_json))
+          expect(json_body).to include(*JSON.parse(ActiveModelSerializers::SerializableResource.new(following_tweets).to_json))
+        end
+      end
+    end
+
+    context 'when params are incorrect' do
+      let(:params) { {} }
+      before { subject }
+
+      context 'when user id not found' do
+        it 'returns 404 user not found' do
+          expect(response).to have_http_status(404)
         end
       end
     end
