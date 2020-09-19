@@ -19,4 +19,8 @@ class User < ApplicationRecord
   has_many :followers, through: :user_followers, source: :follower
   has_many :tweets
 
+
+  validates_presence_of :email, :name
+  validates_uniqueness_of :email
+
 end
