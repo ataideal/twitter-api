@@ -11,6 +11,8 @@ Rails.application.routes.draw do
           delete :unfollow
         end
       end
+
+      resources :tweets, only: [:index, :create]
     end
   end
 end

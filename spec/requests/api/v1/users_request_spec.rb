@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
+RSpec.describe 'Api::V1::Users', type: :request do
 
-  describe '#follow' do
+  describe 'POST api/v1/users/:id/follow' do
     let(:user) { create(:user) }
     let(:user2) { create(:user) }
     context 'when params are correct' do
@@ -81,7 +81,7 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe '#unfollow' do
+  describe 'DELETE api/v1/users/:id/unfollow' do
     let(:user_follow) { create(:user_follow) }
     let(:user) { user_follow.follower }
     let(:user2) { user_follow.following }
