@@ -10,8 +10,9 @@
 #
 # Indexes
 #
-#  index_user_follows_on_following_id  (following_id)
-#  index_user_follows_on_user_id       (user_id)
+#  index_user_follows_on_following_id              (following_id)
+#  index_user_follows_on_user_id                   (user_id)
+#  index_user_follows_on_user_id_and_following_id  (user_id,following_id) UNIQUE
 #
 # Foreign Keys
 #
