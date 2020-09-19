@@ -4,12 +4,14 @@ module Command
   attr_reader :result, :errors
 
   def initialize
+    raise "method 'perform' not implemented for this class" unless self.class.method_defined?(:perform)
+
     @errors = nil
     @result = perform
-    @_sucess = errors.nil? ? true : false
+    @_success = errors.nil? ? true : false
   end
 
-  def sucess?
-    @_sucess
+  def success?
+    @_success
   end
 end

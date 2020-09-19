@@ -5,7 +5,7 @@ module Api
     class UsersController < Api::V1::BaseController
       def follow
         command = UserBusiness::CreateFollow.new(params[:id], params[:following_id])
-        if command.sucess?
+        if command.success?
           head :created
         else
           render_errors(errors: command.errors, message: command.errors.full_messages.to_sentence, status: 422)
@@ -14,7 +14,7 @@ module Api
 
       def unfollow
         command = UserBusiness::DestroyFollow.new(params[:id], params[:following_id])
-        head :no_content if command.sucess?
+        head :no_content if command.success?
       end
     end
   end
