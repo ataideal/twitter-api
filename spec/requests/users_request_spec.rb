@@ -3,4 +3,67 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
+
+  describe '#follow' do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    context 'when params are correct' do
+      let(:params) { { following_id: user2.id } }
+      before { post follow_api_v1_user_path(user), params: params }
+
+      it 'renders 201 created' do
+        expect(response).to have_http_status(201)
+      end
+
+      it 'expect user have a new following' do
+        expect(user.followings.count).to eq(1)
+        expect(user.followings).to eq([user2])
+      end
+
+      it 'expect user2 have a new follower' do
+        expect(user2.followers.count).to eq(1)
+        expect(user2.followers).to eq([user])
+      end
+    end
+
+    context 'when params are incorrect' do
+      let(:params) { {} }
+      before { post follow_api_v1_user_path(user), params: params }
+
+      context 'when missing params' do
+        it 'returns 404 user not found' do
+          expect(response).to have_http_status(404)
+        end
+      end
+
+      context 'when following id not found' do
+        let(:params) { { following_id: 0} }
+
+        it 'returns 404 user not found' do
+          expect(response).to have_http_status(404)
+        end
+      end
+
+      context 'when user id not found' do
+        let(:user) { User.new(id: 0) }
+        let(:params) { { following_id: user2.id} }
+
+        it 'returns 404 user not found' do
+          expect(response).to have_http_status(404)
+        end
+      end
+
+      context 'when user try to follow himself' do
+        let(:params) { { following_id: user.id} }
+
+        it 'returns 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'returns message error' do
+          expect(json_body['errors']['following_id'].first).to eq("You can't follow yourself")
+        end
+      end
+    end
+  end
 end

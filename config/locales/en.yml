@@ -36,4 +36,4 @@ en:
         user_follow:
           attributes:
             following_id:
-              bad_following_id: "You cann't follow yourself"
+              bad_following_id: "You can't follow yourself"
