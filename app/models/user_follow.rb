@@ -24,4 +24,13 @@ class UserFollow < ApplicationRecord
   belongs_to :following, class_name: 'User', foreign_key: :following_id
 
   validates_uniqueness_of :user_id, scope: :following_id
+
+  validate :not_following_yourself
+
+
+  def not_following_yourself
+    if user_id == following_id
+      errors.add(:following_id, :bad_following_id)
+    end
+  end
 end

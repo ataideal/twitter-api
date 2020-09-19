@@ -6,6 +6,7 @@ SimpleCov.start do
   add_filter "config/"
   add_group "Models", "app/models"
   add_group "Controllers", "app/controllers"
+  add_group "Business", "app/business"
   add_group "Serializers", "app/serializers"
 end
 
