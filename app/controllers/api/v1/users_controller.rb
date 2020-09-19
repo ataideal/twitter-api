@@ -14,9 +14,7 @@ module Api
 
       def unfollow
         command = UserBusiness::DestroyFollow.new(params[:id], params[:following_id])
-        if command.sucess?
-          head :no_content
-        end
+        head :no_content if command.sucess?
       end
     end
   end

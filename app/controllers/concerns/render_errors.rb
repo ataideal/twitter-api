@@ -4,7 +4,6 @@ module RenderErrors
   extend ActiveSupport::Concern
 
   included do
-
     rescue_from ActiveRecord::RecordNotFound do |exception|
       render_errors(errors: [*exception], message: exception.to_s, status: 404)
     end

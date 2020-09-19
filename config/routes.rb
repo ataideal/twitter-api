@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :tweets, only: [:index, :create]
+      resources :tweets, only: %i[index create]
     end
   end
 end

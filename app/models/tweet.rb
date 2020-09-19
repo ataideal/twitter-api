@@ -23,5 +23,4 @@ class Tweet < ApplicationRecord
 
   validates :content, presence: true, allow_blank: false
   validates :content, length: { minimum: 3, maximum: 280 }
-
 end

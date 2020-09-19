@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Tweets', type: :request do
-
   describe 'POST api/v1/tweets' do
     let(:user) { create(:user) }
     let(:tweet) { build(:tweet) }
@@ -15,7 +14,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
         }
       }
     end
-    let(:subject) { post api_v1_tweets_path, params: params}
+    let(:subject) { post api_v1_tweets_path, params: params }
 
     context 'when params are correct' do
       before { subject }
@@ -29,9 +28,9 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
       end
 
       it 'expect tweet params be right' do
-        expect(json_body["content"]).to eq(tweet.content)
-        expect(json_body["id"]).to eq(user.tweets.first.id)
-        expect(json_body["user"]["id"]).to eq(user.id)
+        expect(json_body['content']).to eq(tweet.content)
+        expect(json_body['id']).to eq(user.tweets.first.id)
+        expect(json_body['user']['id']).to eq(user.id)
       end
     end
 
@@ -48,74 +47,74 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
       context 'when user id not found' do
         let(:params) do
           {
-              tweet: {
-                  user_id: 0,
-                  content: tweet.content
-              }
+            tweet: {
+              user_id: 0,
+              content: tweet.content
+            }
           }
         end
         it 'returns 422 user not exist and a message error' do
           expect(response).to have_http_status(422)
-          expect(json_body["errors"]["user"].first).to eq("must exist")
+          expect(json_body['errors']['user'].first).to eq('must exist')
         end
       end
 
       context 'when content is missing' do
         let(:params) do
           {
-              tweet: {
-                  user_id: user.id
-              }
+            tweet: {
+              user_id: user.id
+            }
           }
         end
         it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
-          expect(json_body["errors"]["content"].first).to eq("can't be blank")
+          expect(json_body['errors']['content'].first).to eq("can't be blank")
         end
       end
 
       context 'when content is empty' do
         let(:params) do
           {
-              tweet: {
-                  content: "",
-                  user_id: user.id
-              }
+            tweet: {
+              content: '',
+              user_id: user.id
+            }
           }
         end
         it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
-          expect(json_body["errors"]["content"].first).to eq("can't be blank")
+          expect(json_body['errors']['content'].first).to eq("can't be blank")
         end
       end
 
       context 'when content is too long' do
         let(:params) do
           {
-              tweet: {
-                  content: Faker::Lorem.characters(number: 300),
-                  user_id: user.id
-              }
+            tweet: {
+              content: Faker::Lorem.characters(number: 300),
+              user_id: user.id
+            }
           }
         end
         it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
-          expect(json_body["errors"]["content"].first).to match(/is too long/)
+          expect(json_body['errors']['content'].first).to match(/is too long/)
         end
       end
 
       context 'when content is too short' do
         let(:params) do
           {
-              tweet: {
-                  content: Faker::Lorem.characters(number: 2),
-                  user_id: user.id
-              }
+            tweet: {
+              content: Faker::Lorem.characters(number: 2),
+              user_id: user.id
+            }
           }
         end
         it 'returns 422 content missing and a message error' do
           expect(response).to have_http_status(422)
-          expect(json_body["errors"]["content"].first).to match(/is too short/)
+          expect(json_body['errors']['content'].first).to match(/is too short/)
         end
       end
     end

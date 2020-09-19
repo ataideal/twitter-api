@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Users', type: :request do
-
   describe 'POST api/v1/users/:id/follow' do
     let(:user) { create(:user) }
     let(:user2) { create(:user) }
@@ -37,7 +36,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       end
 
       context 'when following id not found' do
-        let(:params) { { following_id: 0} }
+        let(:params) { { following_id: 0 } }
 
         it 'returns 404 user not found' do
           expect(response).to have_http_status(404)
@@ -46,7 +45,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
       context 'when user id not found' do
         let(:user) { User.new(id: 0) }
-        let(:params) { { following_id: user2.id} }
+        let(:params) { { following_id: user2.id } }
 
         it 'returns 404 user not found' do
           expect(response).to have_http_status(404)
@@ -54,7 +53,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       end
 
       context 'when user try to follow same user twice' do
-        let(:params) { { following_id: user2.id} }
+        let(:params) { { following_id: user2.id } }
         before { post follow_api_v1_user_path(user), params: params }
 
         it 'returns 422' do
@@ -62,12 +61,12 @@ RSpec.describe 'Api::V1::Users', type: :request do
         end
 
         it 'returns message error' do
-          expect(json_body['errors']['user_id'].first).to eq("has already been taken")
+          expect(json_body['errors']['user_id'].first).to eq('has already been taken')
         end
       end
 
       context 'when user try to follow himself' do
-        let(:params) { { following_id: user.id} }
+        let(:params) { { following_id: user.id } }
 
         it 'returns 422' do
           expect(response).to have_http_status(422)
@@ -77,7 +76,6 @@ RSpec.describe 'Api::V1::Users', type: :request do
           expect(json_body['errors']['following_id'].first).to eq("You can't follow yourself")
         end
       end
-
     end
   end
 
@@ -116,7 +114,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       end
 
       context 'when following id not found' do
-        let(:params) { { following_id: 0} }
+        let(:params) { { following_id: 0 } }
 
         it 'returns 404 user not found' do
           expect(response).to have_http_status(404)
@@ -125,7 +123,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
       context 'when user id not found' do
         let(:user) { User.new(id: 0) }
-        let(:params) { { following_id: user2.id} }
+        let(:params) { { following_id: user2.id } }
 
         it 'returns 404 user not found' do
           expect(response).to have_http_status(404)
@@ -133,7 +131,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       end
 
       context 'when user try to unfollow twice' do
-        let(:params) { { following_id: user2.id} }
+        let(:params) { { following_id: user2.id } }
         before { delete unfollow_api_v1_user_path(user), params: params }
 
         it 'returns 404' do

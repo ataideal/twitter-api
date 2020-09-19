@@ -5,9 +5,7 @@ module Api
     class TweetsController < Api::V1::BaseController
       def index
         command = TweetBusiness::TweetFeed.new(params[:user_id])
-        if command.sucess?
-          render json: command.result, status: :ok
-        end
+        render json: command.result, status: :ok if command.sucess?
       end
 
       def create
@@ -20,6 +18,7 @@ module Api
       end
 
       private
+
       def tweet_params
         params.require(:tweet).permit(:content, :user_id)
       end

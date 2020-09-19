@@ -1,7 +1,17 @@
 require: rubocop-rails
 
+AllCops:
+  Exclude:
+    - 'db/**'
+    - 'bin/**'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+
 Style/Documentation:
   Enabled: false
 
 Rails/InverseOf:
-  Enable: false
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
