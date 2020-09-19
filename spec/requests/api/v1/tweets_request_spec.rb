@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
       it 'expect tweet params be right' do
         expect(json_body["content"]).to eq(tweet.content)
         expect(json_body["id"]).to eq(user.tweets.first.id)
-        expect(json_body["user_id"]).to eq(user.id)
+        expect(json_body["user"]["id"]).to eq(user.id)
       end
     end
 
@@ -148,7 +148,7 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
         end
 
         it 'expect response to match user tweet' do
-          expect(json_body).to include(*JSON.parse(ActiveModelSerializers::SerializableResource.new(tweets).to_json))
+          expect(json_body).to include(*JSON.parse(serialize_object(tweets)))
         end
       end
 
@@ -163,8 +163,8 @@ RSpec.describe 'Api::V1::Tweets', type: :request do
 
         it 'expect response to match user tweet feed' do
           subject
-          expect(json_body).to include(*JSON.parse(ActiveModelSerializers::SerializableResource.new(tweets).to_json))
-          expect(json_body).to include(*JSON.parse(ActiveModelSerializers::SerializableResource.new(following_tweets).to_json))
+          expect(json_body).to include(*JSON.parse(serialize_object(tweets)))
+          expect(json_body).to include(*JSON.parse(serialize_object(following_tweets)))
         end
       end
     end
