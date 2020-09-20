@@ -14,6 +14,9 @@ This repository is Ruby on Rails project. It implements some endpoints to simula
 4. rails s -b 0.0.0.0
 
 ## Endpoints
+#### Postman docs
+https://documenter.getpostman.com/view/2488938/TVKBZeAN
+
 #### GET api/v1/tweets
 - Query params:
   1. user_id (required)
