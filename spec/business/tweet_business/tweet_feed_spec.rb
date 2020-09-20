@@ -23,6 +23,12 @@ RSpec.describe TweetBusiness::TweetFeed do
       expect(subject.result.size).to eq(15)
     end
 
+    it 'list all tweets in order desc' do
+      expect(
+        subject.result.each_cons(2).all? { |a, b| (a <=> b) >= 0 }
+      ).to be_truthy
+    end
+
     context 'after unfollow a user' do
       before { user_followings.first.destroy! }
       it 'dont list user tweets after' do
