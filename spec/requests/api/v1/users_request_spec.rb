@@ -130,12 +130,8 @@ RSpec.describe 'Api::V1::Users', type: :request do
         let(:params) { { following_id: user2.id } }
         before { delete unfollow_api_v1_user_path(user), params: params }
 
-        it 'returns 404' do
-          expect(response).to have_http_status(404)
-        end
-
-        it 'returns message error' do
-          expect(json_body['errors'].first).to eq("Couldn't find UserFollow")
+        it 'returns 204' do
+          expect(response).to have_http_status(204)
         end
       end
     end

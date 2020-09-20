@@ -17,6 +17,10 @@ RSpec.describe UserBusiness::CreateFollow do
       expect(subject.result).to be_an UserFollow
     end
 
+    it "success? is true" do
+      expect(subject.success?).to be_truthy
+    end
+
     it "user_follow association has user_id and following_id as expect" do
       user_follow = subject.result
       expect(user_follow.follower).to eq(user)
