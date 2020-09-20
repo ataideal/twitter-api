@@ -56,12 +56,8 @@ RSpec.describe 'Api::V1::Users', type: :request do
         let(:params) { { following_id: user2.id } }
         before { post follow_api_v1_user_path(user), params: params }
 
-        it 'returns 422' do
-          expect(response).to have_http_status(422)
-        end
-
-        it 'returns message error' do
-          expect(json_body['errors']['user_id'].first).to eq('has already been taken')
+        it 'returns 201' do
+          expect(response).to have_http_status(201)
         end
       end
 

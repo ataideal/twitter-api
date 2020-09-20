@@ -13,6 +13,8 @@ module UserBusiness
     protected
 
     def perform
+      user_follow = UserFollow.find_by(follower: @user, following: @following)
+      return user_follow if user_follow.present?
       user_follow = @user.user_followings.build(following: @following)
       @errors = user_follow.errors unless user_follow.save
       user_follow
