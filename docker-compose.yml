@@ -21,4 +21,4 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
-      - /private/etc/backend/pg/data:/var/lib/postgresql/data
+      - ~/backend/pg/data:/var/lib/postgresql/data
