@@ -12,6 +12,7 @@ This repository is Ruby on Rails project. It implements some endpoints to simula
 2. docker exec -it backend bash
 3. rails db:setup
 4. rails s -b 0.0.0.0
+then application will be available at localhost:3000.
 
 P.S. database will be seeded with 5 users.
 
