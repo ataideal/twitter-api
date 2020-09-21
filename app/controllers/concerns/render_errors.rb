@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This module is a concerns to rescue application from errors and renders them as expected.
+
 module RenderErrors
   extend ActiveSupport::Concern
 

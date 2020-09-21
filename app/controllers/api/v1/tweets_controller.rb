@@ -3,11 +3,15 @@
 module Api
   module V1
     class TweetsController < Api::V1::BaseController
+
+      # List tweets from user's feed
       def index
         command = TweetBusiness::TweetFeed.new(params[:user_id])
         render json: command.result, status: :ok if command.success?
       end
 
+
+      # Create a user tweet
       def create
         command = TweetBusiness::CreateTweet.new(tweet_params)
         if command.success?

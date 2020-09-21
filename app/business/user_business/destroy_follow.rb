@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This class is responsible for destroy a follow relationship between users.
+
 module UserBusiness
   class DestroyFollow
     include Command

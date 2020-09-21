@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This class is responsible for list user's tweet feed.
+
 module TweetBusiness
   class TweetFeed
     include Command

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This class is responsible for create a follow relationship between users.
+
 module UserBusiness
   class CreateFollow
     include Command

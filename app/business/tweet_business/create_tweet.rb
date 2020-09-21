@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+# This class is responsible for all business logic to create a tweet.
+# tweet_params e.g.
+# {
+#   "content": "tweet",
+#   "user_id": 1
+# }
+#
 module TweetBusiness
   class CreateTweet
     include Command
