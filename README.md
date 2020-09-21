@@ -17,6 +17,9 @@ then application will be available at localhost:3000.
 
 P.S. database will be seeded with 5 users.
 
+## Tests
+COVERAGE=true rspec
+
 ## Endpoints
 #### Postman docs
 https://documenter.getpostman.com/view/2488938/TVKBZeAN
