@@ -13,6 +13,8 @@ This repository is Ruby on Rails project. It implements some endpoints to simula
 3. rails db:setup
 4. rails s -b 0.0.0.0
 
+P.S. database will be seeded with 5 users.
+
 ## Endpoints
 #### Postman docs
 https://documenter.getpostman.com/view/2488938/TVKBZeAN
